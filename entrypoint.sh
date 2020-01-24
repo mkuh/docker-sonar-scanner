@@ -1,5 +1,16 @@
-#!/bin/sh -l
+#!/bin/sh
 
-echo "Hello $1"
-time=$(date)
-echo ::set-output name=time::$time
+if [ -z ${SONAR_URL+x} ]; then
+  echo "Undefined \"SONAR_URL\" env" && exit 1
+fi
+
+URL=$SONAR_URL
+
+BEFEHL="sonar-scanner -Dsonar.host.url=$URL"
+
+if [ -z ${SONAR_TOKEN+x} ]; then
+  echo "Undefined \"SONAR_TOKEN\" env" && echo $@ &&  exit 1
+fi
+BEFEHL="$BEFEHL -Dsonar.login=$SONAR_TOKEN"
+
+$BEFEHL $@
