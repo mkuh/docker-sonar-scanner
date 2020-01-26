@@ -2,15 +2,19 @@ name: CI
 on: [push]
 
 jobs:
-  hello_world_job:
+  build:
     runs-on: ubuntu-latest
-    name: A job to say hello
     steps:
-    - name: Hello world action step
-      id: hello
-      uses: actions/hdocker-sonar-scanner@v1
+    - uses: actions/checkout@master
+    - name: Create local changes
+      run: |
+        touch ./test
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Add changes" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
-        who-to-greet: 'Mona the Octocat'
-    # Use the output from the `hello` step
-    - name: Get the output time
-      run: echo "The time was ${{ steps.hello.outputs.time }}"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
