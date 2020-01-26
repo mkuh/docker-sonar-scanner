@@ -13,7 +13,9 @@ jobs:
 
     - name: Create local changes
       run: |
-       echo LAST_VERSION
+       echo $LAST_VERSION
+       ls -la
+       sed -i 's/ENV SONAR_SCANNER_VERSION.*/ENV SONAR_SCANNER_VERSION AAA/' ./Dockerfile
     - name: Commit files
       run: |
 #        git config --local user.email "action@github.com"
