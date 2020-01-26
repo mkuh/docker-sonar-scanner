@@ -1,0 +1,24 @@
+name: Set the tag
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: get soanar files
+      run: |
+       git clone https://github.com/SonarSource/sonar-scanner-cli.git
+    - name: get docker files
+      run: |
+       git clone https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/mkuh/docker-sonar-scanner.git
+    - name: set tag file
+      run: |
+       cd sonar-scanner-cli
+       LAST_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
+       cd ..
+       cd docker-sonar-scanner
+       git config --local user.email "action@github.com"
+       git config --local user.name "GitHub Action"
+       git tag -a $LAST_VERSION -m "my version $LAST_VERSION"
+       git push --tags
+        
