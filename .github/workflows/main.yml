@@ -5,12 +5,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: get soanar files
+      run: |
+       git clone https://github.com/SonarSource/sonar-scanner-cli.git
+       cd sonar-scanner-cli
+       LAST_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
+
     - name: Create local changes
       run: |
-       echo 'AAA'
+       echo LAST_VERSION
     - name: Commit files
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Add changes" -a
+#        git config --local user.email "action@github.com"
+#        git config --local user.name "GitHub Action"
+#        git commit -m "Add changes" -a
 # ${{ secrets.GITHUB_TOKEN }}
