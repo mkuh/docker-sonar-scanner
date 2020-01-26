@@ -18,10 +18,11 @@ jobs:
        echo "last version ${LAST_VERSION}"
        cd ..
        sed -i "s/ENV SONAR_SCANNER_VERSION.*/ENV SONAR_SCANNER_VERSION $LAST_VERSION/" ./docker-sonar-scanner/Dockerfile
-       cat ./docker-sonar-scanner/Dockerfile
     - name: Commit files
       run: |
-#        git config --local user.email "action@github.com"
-#        git config --local user.name "GitHub Action"
-#        git commit -m "Add changes" -a
+        cd docker-sonar-scanner
+        git diff
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Add changes" -a
 # ${{ secrets.GITHUB_TOKEN }}
