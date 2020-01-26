@@ -21,8 +21,7 @@ jobs:
     - name: Commit files
       run: |
         cd docker-sonar-scanner
-        git diff
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Add changes" -a
-# ${{ secrets.GITHUB_TOKEN }}
+        git commit -m "Update version number" -a
+        git push
