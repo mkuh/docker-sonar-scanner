@@ -4,7 +4,7 @@ FROM alpine:latest
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
 
-ENV SONAR_SCANNER_VERSION 4.2.0.1872
+ENV SONAR_SCANNER_VERSION 4.2.0.1873
 
 ADD https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}.zip  /tmp/sonar-scanner.zip
 
