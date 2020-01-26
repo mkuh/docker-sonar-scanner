@@ -8,15 +8,18 @@ jobs:
     - name: get soanar files
       run: |
        git clone https://github.com/SonarSource/sonar-scanner-cli.git
+    - name: get docker files
+      run: |
+       git clone https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/mkuh/docker-sonar-scanner.git
     - name: get git files
       run: |
-       echo " ${GITHUB_REPOSITORY}"
-       git clone https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/mkuh/docker-sonar-scanner.git
        cd sonar-scanner-cli
        LAST_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
        echo "BBB ${LAST_VERSION}"
+       cd ..
        ls -la ..
-#       sed -i 's/ENV SONAR_SCANNER_VERSION.*/ENV SONAR_SCANNER_VERSION AAA/' ./docker-sonar-scanner/Dockerfile
+       sed -i 's/ENV SONAR_SCANNER_VERSION.*/ENV SONAR_SCANNER_VERSION AAA/' ./docker-sonar-scanner/Dockerfile
+       cat ./docker-sonar-scanner/Dockerfile
     - name: Commit files
       run: |
 #        git config --local user.email "action@github.com"
