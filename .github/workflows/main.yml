@@ -1,5 +1,7 @@
-name: CI
-on: [push]
+name: Check the version number
+on:
+  schedule:
+    - cron:  '1 5 * * *'
 
 jobs:
   build:
@@ -11,7 +13,7 @@ jobs:
     - name: get docker files
       run: |
        git clone https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/mkuh/docker-sonar-scanner.git
-    - name: get git files
+    - name: change file
       run: |
        cd sonar-scanner-cli
        LAST_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
