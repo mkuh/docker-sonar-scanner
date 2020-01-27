@@ -23,7 +23,9 @@ jobs:
     - name: Commit files
       run: |
         cd docker-sonar-scanner
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Update version number" -a
-        git push
+        if [ -n "$(git status --porcelain)" ]; then
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Update version number" -a
+          git push
+        fi
